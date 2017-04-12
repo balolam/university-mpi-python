@@ -1,7 +1,7 @@
 from mpi4py import MPI
 
-from mpi_utils import finalize
-from mpi_utils import init
+from utils.mpi_helper import finalize
+from utils.mpi_helper import init
 
 init()
 
@@ -13,11 +13,11 @@ print "process [", rank, "] - running"
 
 if rank % 2 == 0:
     data = {'name': "PROCESS-" + str(rank), 'msg': "Hello"}
-    req = comm.isend(data, dest=rank + 1, tag=rank + 1)
+    req = comm.isend(data, dest=rank + 1, tag=0)
     req.wait()
 else:
-    req = comm.irecv(source=rank - 1, tag=rank)
+    req = comm.irecv(source=rank - 1, tag=0)
     data = req.wait()
-    print "from process-" + str(rank) + ":", data['name'], "say", data['msg']
+    print "process-" + str(rank) + ":", data['name'], "say", data['msg']
 
 finalize()

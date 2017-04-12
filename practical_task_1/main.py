@@ -1,19 +1,10 @@
-import os
-import sys
+from utils.mpi_runner import run_mpi_script
 
 print "TASK 1 -------------------------"
-os.system("mpirun -np 2 python task1.py")
+run_mpi_script("task1.py", process_count=2)
+
 print "TASK 2 -------------------------"
-os.system("mpirun -np 2 python task2.py")
+run_mpi_script("task2.py", process_count=2)
+
 print "TASK 3 -------------------------"
-
-argv = sys.argv
-size = int(sys.argv[1])
-
-if not size:
-    raise ValueError("size does not exists!")
-
-if size % 2 != 0:
-    raise ValueError("size % 2 != 0!")
-
-os.system("mpirun -np " + str(size) + " python task3.py")
+run_mpi_script("task3.py", process_count=8, params=4)
