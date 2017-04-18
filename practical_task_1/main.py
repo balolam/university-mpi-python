@@ -1,4 +1,4 @@
-from utils.mpi_runner import run_mpi_script
+from tools.mpi_runner import run_mpi_script
 
 print "TASK 1 -------------------------"
 run_mpi_script("task1.py", process_count=2)

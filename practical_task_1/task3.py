@@ -1,7 +1,7 @@
 from mpi4py import MPI
 
-from utils.mpi_helper import finalize
-from utils.mpi_helper import init
+from tools.mpi_helper import finalize
+from tools.mpi_helper import init
 
 init()
 

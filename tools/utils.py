@@ -1,4 +1,6 @@
 import time
+import sys
+from mpi4py import MPI
 
 
 def current_time_millis(): return int(round(time.time() * 1000))
@@ -37,3 +39,41 @@ def track_time(message, func):
     func()
     f_time = current_time_millis()
     print message + ":", (f_time - s_time), "millis"
+
+
+def format_human_time(millis):
+    if millis == 0:
+        return "0 millis"
+
+    if millis < 1000:
+        return str(millis) + " millis"
+
+    seconds = millis / 1000
+    millis = millis - (seconds * 1000)
+
+    if seconds < 60:
+        res = ""
+
+        if seconds != 0:
+            res = str(seconds) + " seconds"
+
+        if millis != 0:
+            res = res + ", " + format_human_time(millis)
+
+        return res
+    else:
+        minutes = seconds / 60
+        res = str(minutes) + " minutes"
+        seconds = seconds - (minutes * 60)
+        res = res + ", " + format_human_time((seconds * 100) + millis)
+
+    return res
+
+
+def smart_print(msg, rank=None):
+    if not rank:
+        comm = MPI.COMM_WORLD
+        rank = comm.rank
+
+    sys.stdout.write("[" + str(rank) + "] " + msg)
+

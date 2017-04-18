@@ -5,11 +5,11 @@ import numpy as np
 from sys import argv
 
 from lab_3.task3_utils import sum_els
-from utils.mpi_helper import init, finalize
+from tools.mpi_helper import init, finalize
 
 
 # noinspection PyShadowingNames
-from utils.utils import current_time_millis, find_numpy_array_human_size, enum, track_time
+from tools.utils import current_time_millis, find_numpy_array_human_size, enum, track_time
 
 array_size = int(argv[1])
 tags = enum('ARRAY', 'COMPUTATION_RESULT')
@@ -23,7 +23,7 @@ size = comm.Get_size()
 if rank == 0:
     arr = np.random.rand(array_size)
 
-    print "arr:", find_numpy_array_human_size(arr)
+    print "arr size:", find_numpy_array_human_size(arr)
 
     track_time("1 process work time:", lambda : sum_els(arr))
 

@@ -5,11 +5,11 @@ import numpy as np
 from sys import argv
 
 from lab_3.task1_utils import multiply_arrs
-from utils.mpi_helper import init, finalize
+from tools.mpi_helper import init, finalize
 
 
 # noinspection PyShadowingNames
-from utils.utils import current_time_millis, find_numpy_array_human_size, enum, track_time
+from tools.utils import current_time_millis, find_numpy_array_human_size, enum, track_time
 
 array_size = int(argv[1])
 
@@ -24,8 +24,8 @@ if rank == 0:
     a = np.random.rand(array_size)
     b = np.random.rand(array_size)
 
-    print "a:", find_numpy_array_human_size(a)
-    print "b:", find_numpy_array_human_size(b)
+    print "a size:", find_numpy_array_human_size(a)
+    print "b sizetas:", find_numpy_array_human_size(b)
 
     track_time("1 process work time", lambda: multiply_arrs(a, b))
 
